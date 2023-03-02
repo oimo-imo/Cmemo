@@ -1,0 +1,11 @@
+C:\Users\oimoi\source\repos\Cmemomo\Cmemomo\bin\Debug\Cmemomo.exe.config
+C:\Users\oimoi\source\repos\Cmemomo\Cmemomo\bin\Debug\Cmemomo.exe
+C:\Users\oimoi\source\repos\Cmemomo\Cmemomo\bin\Debug\Cmemomo.pdb
+C:\Users\oimoi\source\repos\Cmemomo\Cmemomo\obj\Debug\Cmemomo.csproj.AssemblyReference.cache
+C:\Users\oimoi\source\repos\Cmemomo\Cmemomo\obj\Debug\Cmemomo.csproj.SuggestedBindingRedirects.cache
+C:\Users\oimoi\source\repos\Cmemomo\Cmemomo\obj\Debug\Cmemomo.Form1.resources
+C:\Users\oimoi\source\repos\Cmemomo\Cmemomo\obj\Debug\Cmemomo.Properties.Resources.resources
+C:\Users\oimoi\source\repos\Cmemomo\Cmemomo\obj\Debug\Cmemomo.csproj.GenerateResource.cache
+C:\Users\oimoi\source\repos\Cmemomo\Cmemomo\obj\Debug\Cmemomo.csproj.CoreCompileInputs.cache
+C:\Users\oimoi\source\repos\Cmemomo\Cmemomo\obj\Debug\Cmemomo.exe
+C:\Users\oimoi\source\repos\Cmemomo\Cmemomo\obj\Debug\Cmemomo.pdb
