@@ -1,24 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
 using System.Diagnostics;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Cmemomo
 {
     public partial class Form1 : Form
     {
         private string currentFilePath; // 現在編集中のファイルのパス
-        private string currentFilePath1; // 現在編集中のファイルのパス（テキストボックス1用）
         private string currentFilePath2; // 現在編集中のファイルのパス（テキストボックス2用）
-        
+
 
         public Form1()
         {
@@ -29,15 +20,15 @@ namespace Cmemomo
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
             {
-                
+
                 UpdateStatusStrip();
 
             }
         }
 
-  
 
-            private void Link_Clicked(object sender, System.Windows.Forms.LinkClickedEventArgs e)
+
+        private void Link_Clicked(object sender, System.Windows.Forms.LinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(e.LinkText);
         }
@@ -86,8 +77,18 @@ namespace Cmemomo
                     string fileContent = File.ReadAllText(filePath);
                     richTextBox1.Text = fileContent;
 
+                    // ラベルに編集中のファイル名を表示させる
+                    string fileName = e.Node.Tag.ToString();
+                    if (!string.IsNullOrEmpty(fileName))
+                    {
+                        label1.Text = Path.GetFileName(fileName);
+                    }
+
+
                     // 現在編集中のファイルのパスを更新
                     currentFilePath = filePath;
+
+                    UpdateStatusStrip();
                 }
             }
         }
@@ -128,6 +129,7 @@ namespace Cmemomo
             {
                 // テキストボックスの内容をファイルに書き込む
                 File.WriteAllText(currentFilePath, richTextBox1.Text);
+                UpdateStatusStrip();
             }
             if (currentFilePath2 != null)
             {
@@ -143,21 +145,27 @@ namespace Cmemomo
 
         private void button4_Click(object sender, EventArgs e)
         {
-            // 新規ファイルを作成する
-            string newFilePath = "newfile.txt";
-            if (!File.Exists(newFilePath))
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Text Files|*.md";
+            saveFileDialog1.Title = "Create a New Text File";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                File.Create(newFilePath).Close();
+                // 新規ファイルを作成する
+                string newFilePath = saveFileDialog1.FileName;
+                if (!File.Exists(newFilePath))
+                {
+                    File.Create(newFilePath).Close();
+                }
+
+                // 新規ファイルをソースツリーに登録する
+                TreeNode node = new TreeNode(Path.GetFileName(newFilePath));
+                node.Tag = newFilePath;
+                treeView1.Nodes.Add(node);
+
+                //ファイルパスを選択する
+                richTextBox1.Text = File.ReadAllText(newFilePath);
+                currentFilePath = newFilePath;
             }
-
-            // 新規ファイルをソースツリーに登録する
-            TreeNode node = new TreeNode("newfile.txt");
-            node.Tag = newFilePath;
-            treeView1.Nodes.Add(node);
-
-            //ファイルパスを選択する
-            richTextBox1.Text = File.ReadAllText(newFilePath);
-            currentFilePath = newFilePath;
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -165,7 +173,7 @@ namespace Cmemomo
 
         }
 
-        
+
 
         private void treeView2_AfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -184,6 +192,14 @@ namespace Cmemomo
                     // テキストボックスにファイルの中身を表示
                     string fileContent = File.ReadAllText(filePath);
                     richTextBox2.Text = fileContent;
+
+                    // ラベルに編集中のファイル名を表示させる
+                    string fileName = e.Node.Tag.ToString();
+                    if (!string.IsNullOrEmpty(fileName))
+                    {
+                        label2.Text = Path.GetFileName(fileName);
+                    }
+
 
                     // 現在編集中のファイルのパスを更新
                     currentFilePath2 = filePath;
@@ -238,5 +254,17 @@ namespace Cmemomo
                 toolStripStatusLabel1.Text = "";
             }
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+
+
